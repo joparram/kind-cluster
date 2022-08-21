@@ -1,0 +1,12 @@
+controller:
+  name: ingress-controller-default 
+  kind: deployment
+  image:
+   repository: nginx/nginx-ingress
+   tag: 2.3.0
+  ingressClass: default
+  setAsDefaultIngress: false
+  service:
+    externalIPs: 
+    - 172.18.255.200
+  logLevel: 10

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: httpd
+  name: httpd
+  namespace: httpd-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpd
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - image: httpd:alpine3.16
+        name: httpd
+        resources: {}
+status: {}
