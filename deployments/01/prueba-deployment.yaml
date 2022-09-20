@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: prueba
+  name: prueba
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prueba
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: prueba
+    spec:
+      containers:
+      - image: busybox
+        name: busybox
+        resources:
+          limits:
+            cpu: 256m
+            memory: 256Mi
+          requests:
+            cpu: 64m
+            memory: 64Mi
+        envFrom:
+          - configMapRef:
+              name: prueba
+        command:
+          - sh
+          - -c
+          - "while true; do sleep 300; done"
+        volumeMounts:
+          - name: prueba
+            mountPath: /app
+            subPath: app 
+      volumes:
+        - configMap:
+            name: prueba
+          name: prueba
+

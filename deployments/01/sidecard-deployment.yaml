@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sidecard
+  name: sidecard
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: sidecard
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sidecard
+    spec:
+      containers:
+      - image: busybox
+        name: read
+        volumeMounts:
+          - name: sharedvol
+            mountPath: /input
+        command:
+          - sh
+          - -c
+          - "tail -f /input/out.log"
+      - image: busybox
+        name: write
+        volumeMounts:
+          - name: sharedvol
+            mountPath: /output
+        command:
+          - sh
+          - -c
+          - "while true; do date >> /output/out.log; sleep 1;done"
+      volumes:
+       - name: sharedvol
+         emptyDir: {}

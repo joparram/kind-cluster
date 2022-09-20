@@ -11,4 +11,8 @@ cd -;cd 04-dns-server
 su joparram -c "vagrant up --provision"
 cd -;cd 05-testapp
 ./install.sh
+cd -;cd 06-webconsole
+./install.sh
+cd -;cd 07-metric-server
+./install.sh
 cd -
