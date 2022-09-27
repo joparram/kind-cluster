@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: initcontainer
+  name: initcontainer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: initcontainer
+  template:
+    metadata:
+      labels:
+        app: initcontainer
+    spec:
+      initContainers:
+      - image: busybox
+        name: initializer
+        command:
+          - sh
+          - -c
+          - "sleep 10"
+      containers:
+      - image: busybox
+        name: busybox
+        command:
+          - sh
+          - -c
+          - "tail -f /dev/null"

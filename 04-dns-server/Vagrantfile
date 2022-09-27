@@ -1,0 +1,24 @@
+Vagrant.configure("2") do |config|
+
+  $provisioner = <<-'SCRIPT'
+    sudo apt-get update
+    sudo apt-get install -y bind9 bind9utils bind9-doc
+    sudo cp -r /tmp/bind9/* /etc/bind
+    sudo systemctl restart bind9
+  SCRIPT
+
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+    v.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+  end
+
+  config.vm.define :dns1 do |dns1|
+    dns1.vm.box = "generic/ubuntu2004"
+    dns1.vm.hostname = "dns1"
+    dns1.vm.network :private_network, ip: "192.168.3.10"
+    dns1.ssh.insert_key = false
+    dns1.vm.provision "file", source: "bind9", destination: "/tmp/bind9"
+    dns1.vm.provision "shell", inline: $provisioner
+  end
+
+end

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: busybox-ds
+  name: busybox-ds
+spec:
+  selector:
+    matchLabels:
+      app: busybox-ds
+  template:
+    metadata:
+      labels:
+        app: busybox-ds
+
+    spec:
+      containers:
+      - image: busybox
+        name: busybox
+        command:
+          - sh
+          - -c
+          - "tail -f /dev/null"

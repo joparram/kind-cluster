@@ -1,0 +1,10 @@
+zone "local.com" {
+    type master;
+    file "/etc/bind/db.local.com";
+};
+
+zone "3.168.192.in-addr.arpa" {
+    type master;
+    notify no;
+    file "/etc/bind/db.192";
+};

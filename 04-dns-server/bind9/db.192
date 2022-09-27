@@ -1,0 +1,10 @@
+$TTL    604800
+@       IN      SOA     dns1.local.com. root.local.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@         IN      NS      dns1.local.com.
+10  IN      PTR     dns1.local.com.
